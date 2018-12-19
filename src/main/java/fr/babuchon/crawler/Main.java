@@ -22,8 +22,8 @@ public class Main {
         List<Future<ArrayList<Program>>> futures = new ArrayList<>();
 
 
-        //futures.add(service.submit(new GuideCrawler(new Tele7())));
-        futures.add(service.submit(new XMLTVGetter()));
+        futures.add(service.submit(new GuideCrawler(new Tele7())));
+        //futures.add(service.submit(new XMLTVGetter()));
 
         for(Future<ArrayList<Program>> f : futures) {
             try {
@@ -45,8 +45,9 @@ public class Main {
         }
         //scheduler.printPrograms();
         service.shutdown();
-        // Chaque thread  callable retourne un liste de programme et on synchronize tout à la fin
 
-        // Rajouter aussi la récupération via telerama
+        // TODO Ajouter le telechargement / sauvegarde des images de manière mulithreadé
+        // TODO Ajouter un fichier de configuration
+        // TODO Ajouter de nombreux site
     }
 }
