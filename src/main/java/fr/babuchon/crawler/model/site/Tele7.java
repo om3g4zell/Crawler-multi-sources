@@ -37,7 +37,7 @@ public class Tele7 extends AbstractSite{
 
         if(imageUrl != null && title != null) {
             Program p = new Program(title);
-            p.addIcon(imageUrl, name);
+            p.addIcon(trickImageUrl(imageUrl), name);
             programs.add(p);
         }
         return programs;
@@ -73,7 +73,13 @@ public class Tele7 extends AbstractSite{
         return false;
     }
 
-    private static void print(String msg, Object... args) {
-        System.out.println(String.format(msg, args));
+    private String trickImageUrl(String imageUrl) {
+        int start = imageUrl.lastIndexOf("/r");
+        int end = imageUrl.indexOf("/img");
+        if(start != -1 && end != -1) {
+            String temp = "" + imageUrl;
+            imageUrl = imageUrl.substring(0, start) + temp.substring(end, temp.length());
+        }
+        return imageUrl;
     }
 }

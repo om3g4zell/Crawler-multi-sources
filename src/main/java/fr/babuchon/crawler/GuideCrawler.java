@@ -30,7 +30,7 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
     }
 
     public GuideCrawler(AbstractSite site) {
-        this(site, 500000);
+        this(site, 20000);
     }
 
     @Override
