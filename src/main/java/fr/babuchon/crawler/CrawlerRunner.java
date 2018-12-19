@@ -3,7 +3,9 @@ package fr.babuchon.crawler;
 import fr.babuchon.crawler.model.Channel;
 import fr.babuchon.crawler.model.Program;
 import fr.babuchon.crawler.model.site.AbstractSite;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
+import org.jsoup.UnsupportedMimeTypeException;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
@@ -59,7 +61,7 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             if(faultCounter >= 6)
                 stop = false;
         }
-        System.out.println(Thread.currentThread().getName());
+        System.out.println("Ended :" + Thread.currentThread().getName());
         return this.programs;
     }
 
@@ -84,7 +86,27 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             this.programs.addAll(programs);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            if(e instanceof UnsupportedMimeTypeException) {
+                visited.add(url);
+            }
+
+            else if(e instanceof HttpStatusException) {
+                HttpStatusException httpE = (HttpStatusException)e;
+                switch (httpE.getStatusCode()) {
+                    case 404 :
+                        visited.add(url);
+                        break;
+                    case 503:
+                        System.out.println("ddos ?" + url);
+                        break;
+                    default:
+                        System.err.println("Error : " + httpE.getStatusCode());
+                        break;
+                }
+            }
+            else {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -68,6 +68,9 @@ public class Guide {
 					
 					
 				}
+				if(icon.equals(""))
+					continue;
+
 				Program p = new Program(start, end, c, title, episode, icon);
 				programs.add(p);
 			}

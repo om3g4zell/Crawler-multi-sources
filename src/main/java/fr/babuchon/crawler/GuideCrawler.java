@@ -30,7 +30,7 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
     }
 
     public GuideCrawler(AbstractSite site) {
-        this(site, 20000);
+        this(site, 200000);
     }
 
     @Override
@@ -50,6 +50,7 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
             programs.addAll(f.get());
         }
         service.shutdown();
+        System.out.println("Ended : " + Thread.currentThread().getName());
         return programs;
     }
 }

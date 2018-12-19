@@ -31,7 +31,7 @@ public class Tele7 extends AbstractSite{
         String title = null;
 
         if(typeElement != null && typeElement.attr("content").equals("tv_show")) {
-            imageUrl = imageElement.attr("content");
+            imageUrl = imageElement.attr("abs:content");
             title = titleElement.attr("content");
         }
 

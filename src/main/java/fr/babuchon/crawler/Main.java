@@ -22,7 +22,7 @@ public class Main {
         List<Future<ArrayList<Program>>> futures = new ArrayList<>();
 
 
-        futures.add(service.submit(new GuideCrawler(new Tele7())));
+        //futures.add(service.submit(new GuideCrawler(new Tele7())));
         futures.add(service.submit(new XMLTVGetter()));
 
         for(Future<ArrayList<Program>> f : futures) {
