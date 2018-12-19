@@ -14,16 +14,14 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
     private Queue<String> queue;
 
     private AbstractSite site;
-    private Scheduler scheduler;
 
     public GuideCrawler(AbstractSite site, double timeout) {
 
-        this.scheduler = Scheduler.getInstance();
         this.site = site;
         this.timeout = timeout;
 
         visited = ConcurrentHashMap.newKeySet();
-        programs = new ArrayList<Program>();
+        programs = new ArrayList<>();
         queue = new ConcurrentLinkedQueue<>();
 
         queue.add(site.getUrl());
