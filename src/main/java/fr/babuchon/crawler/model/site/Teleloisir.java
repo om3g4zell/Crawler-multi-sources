@@ -3,6 +3,8 @@ package fr.babuchon.crawler.model.site;
 import fr.babuchon.crawler.model.Program;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -13,7 +15,7 @@ import java.util.regex.Pattern;
 public class Teleloisir extends AbstractSite{
 
     private static final Pattern p = Pattern.compile("^.*(http\\.3A\\.2F\\.2F.*\\.2Ejpg).*");
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(Teleloisir.class);
     public Teleloisir() {
         super();
 
@@ -38,9 +40,10 @@ public class Teleloisir extends AbstractSite{
         String type = null;
         if(typeElement != null && titleElement != null && imageElement != null) {
             type = typeElement.attr("content");
-            if(type.equals("video.movie")) {
+            if(type.contains("video")) {
                 imageUrl = imageElement.attr("abs:content");
                 title = titleElement.text();
+                LOGGER.debug("type : {}", type);
             }
         }
 

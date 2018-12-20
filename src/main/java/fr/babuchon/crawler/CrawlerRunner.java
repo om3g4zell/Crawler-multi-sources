@@ -48,7 +48,7 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             String url = queue.poll();
             if(url != null) {
                 runPage(url);
-                LOGGER.debug("Crawled : {} T : {} Site : {}", url, Thread.currentThread().getName(), site.getUrl());
+                //LOGGER.debug("Crawled : {} T : {} Site : {}", url, Thread.currentThread().getName(), site.getUrl());
                 faultCounter = 0;
             }
             else {

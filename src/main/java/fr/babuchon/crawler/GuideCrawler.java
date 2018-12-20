@@ -2,11 +2,16 @@ package fr.babuchon.crawler;
 
 import fr.babuchon.crawler.model.site.AbstractSite;
 import fr.babuchon.crawler.model.Program;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 import java.util.concurrent.*;
 
 public class GuideCrawler implements Callable<ArrayList<Program>>{
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GuideCrawler.class);
+    
     public double timeout;
 
     private Set<String> visited;
@@ -49,7 +54,7 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
             programs.addAll(f.get());
         }
         service.shutdown();
-        System.out.println("Ended : " + Thread.currentThread().getName());
+        LOGGER.info("Ended : {}", Thread.currentThread().getName());
         return programs;
     }
 }
