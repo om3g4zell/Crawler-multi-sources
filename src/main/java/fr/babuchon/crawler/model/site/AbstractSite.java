@@ -15,15 +15,16 @@ public abstract class AbstractSite {
     protected String url;
 
     protected ArrayList<Pattern> allowUrl;
-    protected ArrayList<Pattern> denieUrl;
+    protected ArrayList<Pattern> deniedUrl;
 
 
     public AbstractSite() {
+
         name = "Insert a name";
         url = "Insert an url";
 
         allowUrl = new ArrayList<>();
-        denieUrl = new ArrayList<>();
+        deniedUrl = new ArrayList<>();
     }
 
     public abstract ArrayList<Program> getPrograms(Document page);
@@ -43,7 +44,7 @@ public abstract class AbstractSite {
     }
 
     public boolean isValidUrl(String url) {
-        for(Pattern p : denieUrl) {
+        for(Pattern p : deniedUrl) {
             if(p.matcher(url).matches()) {
                 return false;
             }

@@ -7,6 +7,8 @@ import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.UnsupportedMimeTypeException;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -16,6 +18,8 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 
 public class CrawlerRunner implements Callable<ArrayList<Program>> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CrawlerRunner.class);
 
     private ArrayList<Program> programs;
     private Queue<String> queue;
@@ -44,7 +48,7 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             String url = queue.poll();
             if(url != null) {
                 runPage(url);
-                //System.out.println("Crawled : " + url + "T : " + Thread.currentThread().getName());
+                LOGGER.info("Crawled : {} T : {} Site : {}", url, Thread.currentThread().getName(), site.getUrl());
                 faultCounter = 0;
             }
             else {
@@ -70,7 +74,8 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             ArrayList<String> urls;
             ArrayList<Program> programs;
 
-            Document doc = Jsoup.connect(url).get();
+            Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                    .referrer("http://www.google.com").get();
             visited.add(url);
 
             urls = site.getUrls(doc);
@@ -78,8 +83,13 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             programs = site.getPrograms(doc);
 
             for(String link : urls) {
-                if(site.isValidUrl(link) && !visited.contains(link)) {
-                    queue.add(link);
+                if(!visited.contains(link)) {
+                    if(site.isValidUrl(link)) {
+                        queue.add(link);
+                    }
+                    else {
+                        visited.add(link);
+                    }
                 }
             }
 
@@ -89,7 +99,6 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             if(e instanceof UnsupportedMimeTypeException) {
                 visited.add(url);
             }
-
             else if(e instanceof HttpStatusException) {
                 HttpStatusException httpE = (HttpStatusException)e;
                 switch (httpE.getStatusCode()) {
@@ -100,7 +109,7 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
                         System.out.println("ddos ?" + url);
                         break;
                     default:
-                        System.err.println("Error : " + httpE.getStatusCode());
+                        LOGGER.error("Error : {}", httpE.getStatusCode(), e);
                         break;
                 }
             }

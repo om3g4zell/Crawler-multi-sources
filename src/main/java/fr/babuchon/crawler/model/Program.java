@@ -32,7 +32,7 @@ public class Program {
 	
 	public Program(LocalDateTime start, LocalDateTime end, Channel channel, String title, String episode, String icon) {
 		this(start, end, channel, title, episode);
-		addIcon(icon, "Telerama");
+		addIcon(icon, "default");
 		
 	}
 	
@@ -66,17 +66,17 @@ public class Program {
 	
 	@Override
 	public String toString() {
-		String str =  "\nDebut : " + toStringDate(start)
-		+ "\nEnd : " + toStringDate(end)
-		+ "\nTitre : " + title + "\nEpisode : " + episode + "\n" + "Channel : \n" + channel
-		+ "Icons : \n{\n";
+		StringBuilder str = new StringBuilder("\nDebut : " + toStringDate(start)
+                + "\nEnd : " + toStringDate(end)
+                + "\nTitre : " + title + "\nEpisode : " + episode + "\n" + "Channel : \n" + channel
+                + "Icons : \n{\n");
 		Iterator<Entry<String, String>> it = icons.entrySet().iterator();
 	    while (it.hasNext()) {
 	    	Entry<String, String> pair = (Entry<String, String>)it.next();
-	        str += "\ticon : " + pair.getKey() + " from " + pair.getValue() + "\n";
+	        str.append("\ticon : ").append(pair.getKey()).append(" from ").append(pair.getValue()).append("\n");
 	    }
-	    str += "\n}\n";
-	    return str;
+	    str.append("\n}\n");
+	    return str.toString();
 	}
 	
 	/*@Override

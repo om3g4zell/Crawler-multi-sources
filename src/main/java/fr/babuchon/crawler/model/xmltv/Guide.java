@@ -49,6 +49,7 @@ public class Guide {
 			Node n = programsNode.item(i);
 			if(n.getNodeType() == Node.ELEMENT_NODE) {
 				Element e = (Element) n;
+				//noinspection SpellCheckingInspection
 				LocalDateTime start = LocalDateTime.parse(e.getAttribute("start"), DateTimeFormatter.ofPattern("yyyyMMddHHmmss[ Z]"));
 				LocalDateTime end = LocalDateTime.parse(e.getAttribute("stop"), DateTimeFormatter.ofPattern("yyyyMMddHHmmss[ Z]"));
 				Channel c = getChannel(e.getAttribute("channel"));
@@ -71,7 +72,8 @@ public class Guide {
 				if(icon.equals(""))
 					continue;
 
-				Program p = new Program(start, end, c, title, episode, icon);
+				Program p = new Program(start, end, c, title, episode);
+				p.addIcon(icon, "Telerama");
 				programs.add(p);
 			}
 		}

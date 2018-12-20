@@ -1,7 +1,6 @@
 package fr.babuchon.crawler.model.xmltv;
 
 import fr.babuchon.crawler.model.Program;
-import fr.babuchon.crawler.utils.HTTPImageGetter;
 import fr.babuchon.crawler.utils.XmltvParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,25 +14,32 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class XMLTVGetter implements Callable<ArrayList<Program>>{
-    private final static String XML_DIRECTORY = "res/";
-    private final static Pattern pattern = Pattern.compile("((\\d{2}\\/\\d{2}\\/\\d{4})|((lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche) \\d{1,2} (janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre) \\d{4}))");
+    private String directory;
+    private String url;
+    private String xmlUrl;
+    private final static Pattern pattern = Pattern.compile("((\\d{2}/\\d{2}/\\d{4})|((lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche) \\d{1,2} (janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre) \\d{4}))");
+
+    public XMLTVGetter(String directory, String url, String xmlUrl) {
+        this.directory = directory;
+        this.url = url;
+        this.xmlUrl = xmlUrl;
+    }
 
     @Override
     public ArrayList<Program> call() throws Exception {
         Guide guide = new Guide();
         XmltvParser parser = new XmltvParser();
         checkUpdate();
-        List<File> xmls = getXmltvs("res/");
+        List<File> xmls = getXmltvs(directory);
 
 
         for(File f: xmls) {
-            parser.changeXML(XML_DIRECTORY + "/" + f.getPath());
+            parser.changeXML(directory + "/" + f.getPath());
             NodeList channelsNode = parser.getChannels();
             NodeList programsNode = parser.getPrograms();
 
@@ -50,20 +56,19 @@ public class XMLTVGetter implements Callable<ArrayList<Program>>{
                 }
             }
         }*/
-        System.out.println("FINI");
-        return new ArrayList<Program>(guide.programs);
+        return new ArrayList<>(guide.programs);
     }
 
     private List<File> getXmltvs(String dir) {
         File directory = new File(dir);
-        ArrayList<File> files = new ArrayList<File>();
+        ArrayList<File> files = new ArrayList<>();
         if(directory.isDirectory() && directory.exists()) {
             for(String f : directory.list()) {
                 System.out.println(f);
                 int index = f.indexOf('.');
                 String extension = "";
                 if(index > 0) {
-                    extension = f.substring(index + 1, f.length());
+                    extension = f.substring(index + 1);
                 }
                 if(extension.equals("xml"))
                     files.add(new File(f));
@@ -73,10 +78,10 @@ public class XMLTVGetter implements Callable<ArrayList<Program>>{
     }
 
     private void checkUpdate()  throws IOException {
-        Document doc = Jsoup.connect("http://www.xmltv.fr/").get();
-        byte[] xml = Jsoup.connect("http://www.xmltv.fr/guide/tvguide.xml").maxBodySize(0).execute().bodyAsBytes();
+        Document doc = Jsoup.connect(url).get();
+        byte[] xml = Jsoup.connect(xmlUrl).maxBodySize(0).execute().bodyAsBytes();
         String updateDate = getDate(doc);
-        saveXML(XML_DIRECTORY + updateDate + ".xml", xml);
+        saveXML(directory + updateDate + ".xml", xml);
     }
 
     private static String getDate(Document doc) {

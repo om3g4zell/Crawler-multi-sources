@@ -97,7 +97,8 @@ public class HTTPImageGetter implements Callable<Integer> {
 			file = new File(imagePath);
 			if(file.exists())
 				return;
-			Response resultImageResponse = Jsoup.connect(imageURL)
+			Response resultImageResponse = Jsoup.connect(imageURL).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+					.referrer("http://www.google.com")
 					.ignoreContentType(true).execute();
 
 			// output here

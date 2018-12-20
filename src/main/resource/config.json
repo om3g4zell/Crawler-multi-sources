@@ -1,0 +1,27 @@
+{
+  "crawlers" : {
+    "xmltv" : {
+      "directory" : "resource/",
+      "url" : "http://www.xmltv.fr/",
+      "xml_url" : "http://www.xmltv.fr/guide/tvguide.xml",
+      "active" : true
+    } ,
+    "tele7" : {
+      "nb_thread" : 10,
+      "timeout" : 12000,
+      "active" : true
+    },
+    "tele_loisir" : {
+      "nb_thread" : 10,
+      "timeout" : 12000,
+      "active" : true
+    }
+  },
+  "downloader" : {
+    "nb_thread" : 10,
+    "timeout" : 0,
+    "image_path" : "D:\\Images\\PRD\\multi-sources",
+    "active" : true
+  }
+
+}

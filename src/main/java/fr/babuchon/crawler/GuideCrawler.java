@@ -12,13 +12,14 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
     private Set<String> visited;
     private ArrayList<Program> programs;
     private Queue<String> queue;
-
+    private int nbThread;
     private AbstractSite site;
 
-    public GuideCrawler(AbstractSite site, double timeout) {
+    public GuideCrawler(AbstractSite site, double timeout, int nbThread) {
 
         this.site = site;
         this.timeout = timeout;
+        this.nbThread = nbThread;
 
         visited = ConcurrentHashMap.newKeySet();
         programs = new ArrayList<>();
@@ -28,7 +29,7 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
     }
 
     public GuideCrawler(AbstractSite site) {
-        this(site, 200000);
+        this(site, 200000, 10);
     }
 
     @Override

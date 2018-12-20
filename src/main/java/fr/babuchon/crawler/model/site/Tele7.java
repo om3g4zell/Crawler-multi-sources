@@ -19,6 +19,7 @@ public class Tele7 extends AbstractSite{
     }
 
     @Override
+    @SuppressWarnings("Duplicated")
     public ArrayList<Program> getPrograms(Document page) {
         // TODO
         ArrayList<Program> programs= new ArrayList<>();
