@@ -32,7 +32,7 @@ public class Program {
 	
 	public Program(LocalDateTime start, LocalDateTime end, Channel channel, String title, String episode, String icon) {
 		this(start, end, channel, title, episode);
-		addIcon(icon, "https://api.telerama.fr");
+		addIcon(icon, "Telerama");
 		
 	}
 	

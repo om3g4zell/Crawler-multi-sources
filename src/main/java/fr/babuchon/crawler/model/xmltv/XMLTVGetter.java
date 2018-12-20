@@ -2,6 +2,7 @@ package fr.babuchon.crawler.model.xmltv;
 
 import fr.babuchon.crawler.model.Program;
 import fr.babuchon.crawler.utils.HTTPImageGetter;
+import fr.babuchon.crawler.utils.XmltvParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;

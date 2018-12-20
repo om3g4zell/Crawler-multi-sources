@@ -49,7 +49,7 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             }
             else {
                 Thread.sleep(500);
-                System.out.println("No link : " + Thread.currentThread().getName());
+                //System.out.println("No link : " + Thread.currentThread().getName());
                 faultCounter++;
             }
 
