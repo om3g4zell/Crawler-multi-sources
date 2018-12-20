@@ -12,8 +12,12 @@ import java.util.concurrent.Callable;
 import fr.babuchon.crawler.model.Program;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HTTPImageGetter implements Callable<Integer> {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(HTTPImageGetter.class);
 
 	private Queue<Program> queue;
 	private String filepath;
@@ -41,6 +45,7 @@ public class HTTPImageGetter implements Callable<Integer> {
 			if(p != null) {
 
 				for(Map.Entry<String, String> i : p.getIcons().entrySet()) {
+					LOGGER.debug(i.getKey());
 					downloadImage(i.getKey(), p.getTitle(), i.getValue());
 				}
 

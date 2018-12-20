@@ -48,7 +48,7 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             String url = queue.poll();
             if(url != null) {
                 runPage(url);
-                LOGGER.info("Crawled : {} T : {} Site : {}", url, Thread.currentThread().getName(), site.getUrl());
+                LOGGER.debug("Crawled : {} T : {} Site : {}", url, Thread.currentThread().getName(), site.getUrl());
                 faultCounter = 0;
             }
             else {
@@ -65,7 +65,7 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             if(faultCounter >= 6)
                 stop = false;
         }
-        System.out.println("Ended :" + Thread.currentThread().getName());
+        LOGGER.info("Ended : {}", Thread.currentThread().getName());
         return this.programs;
     }
 

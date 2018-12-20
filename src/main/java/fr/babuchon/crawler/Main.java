@@ -20,7 +20,6 @@ import java.util.concurrent.*;
 
 public class Main {
 
-    public final static String IMAGE_SAVE_PATH = "D:\\Images\\PRD\\multi-sources";
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     public static void main( String[] args ) {
 
@@ -32,7 +31,7 @@ public class Main {
         JSONObject crawlersObject;
         JSONObject downloaderObject;
         try {
-            File file = new File("/resource/config.json");
+            File file = new File("res/config.json");
             LOGGER.debug(file.getPath());
             String content = FileUtils.readFileToString(file, "utf-8");
             configJson = new JSONObject(content);
@@ -113,7 +112,7 @@ public class Main {
         service.shutdown();
         System.out.println("Downloaded : " + counter);
 
-        // TODO Ajouter un fichier de configuration
+        // TODO problème avec tele7 comme l'url des images est à chier faut voir
         // TODO Ajouter de nombreux site
     }
 }

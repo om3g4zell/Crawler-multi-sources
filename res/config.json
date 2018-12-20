@@ -1,19 +1,19 @@
 {
   "crawlers" : {
     "xmltv" : {
-      "directory" : "resource/",
+      "directory" : "res/",
       "url" : "http://www.xmltv.fr/",
       "xml_url" : "http://www.xmltv.fr/guide/tvguide.xml",
-      "active" : true
+      "active" : false
     } ,
     "tele7" : {
       "nb_thread" : 10,
-      "timeout" : 12000,
+      "timeout" : 500000,
       "active" : true
     },
     "tele_loisir" : {
       "nb_thread" : 10,
-      "timeout" : 12000,
+      "timeout" : 500000,
       "active" : true
     }
   },
