@@ -25,6 +25,7 @@ hs_err_pid*
 .idea
 target
 Crawler.iml
+
 *.txt
 *.xml
-*.dtd
+!log4j2.xml
