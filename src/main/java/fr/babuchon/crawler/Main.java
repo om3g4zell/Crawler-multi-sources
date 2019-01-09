@@ -30,6 +30,7 @@ public class Main {
         JSONObject teleLoisirObject;
         JSONObject crawlersObject;
         JSONObject downloaderObject;
+
         try {
             File file = new File("res/config.json");
             LOGGER.debug(file.getPath());
@@ -56,6 +57,8 @@ public class Main {
                     nbCrawler++;
             }
         }
+        if(nbCrawler == 0)
+            return;
         ExecutorService service = Executors.newFixedThreadPool(nbCrawler);
 
         List<Future<ArrayList<Program>>> futures = new ArrayList<>();

@@ -105,6 +105,10 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
                     case 404 :
                         visited.add(url);
                         break;
+                    case 410:
+                        visited.add(url);
+                        LOGGER.error("Error {} : " + url, httpE.getStatusCode(), e);
+                        break;
                     case 503:
                         System.out.println("ddos ?" + url);
                         break;

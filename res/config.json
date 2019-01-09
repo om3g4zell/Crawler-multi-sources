@@ -8,12 +8,12 @@
     } ,
     "tele7" : {
       "nb_thread" : 10,
-      "timeout" : 500000,
+      "timeout" : 1200000,
       "active" : true
     },
     "tele_loisir" : {
       "nb_thread" : 10,
-      "timeout" : 500000,
+      "timeout" : 1200000,
       "active" : true
     }
   },
