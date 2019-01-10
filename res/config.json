@@ -4,16 +4,21 @@
       "directory" : "res/",
       "url" : "http://www.xmltv.fr/",
       "xml_url" : "http://www.xmltv.fr/guide/tvguide.xml",
-      "active" : false
+      "active" : true
     } ,
     "tele7" : {
       "nb_thread" : 10,
-      "timeout" : 1200000,
+      "timeout" : 300000,
       "active" : true
     },
     "tele_loisir" : {
       "nb_thread" : 10,
-      "timeout" : 1200000,
+      "timeout" : 300000,
+      "active" : true
+    },
+    "figaro" : {
+      "nb_thread" : 10,
+      "timeout" : 300000,
       "active" : true
     }
   },

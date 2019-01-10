@@ -1,6 +1,7 @@
 package fr.babuchon.crawler;
 
 import fr.babuchon.crawler.model.Program;
+import fr.babuchon.crawler.model.site.LeFigaro;
 import fr.babuchon.crawler.model.site.Tele7;
 import fr.babuchon.crawler.model.site.Teleloisir;
 import fr.babuchon.crawler.model.xmltv.XMLTVGetter;
@@ -28,6 +29,7 @@ public class Main {
         JSONObject xmltvObject;
         JSONObject tele7Object;
         JSONObject teleLoisirObject;
+        JSONObject figaroObject;
         JSONObject crawlersObject;
         JSONObject downloaderObject;
 
@@ -40,6 +42,7 @@ public class Main {
             xmltvObject = crawlersObject.getJSONObject("xmltv");
             tele7Object = crawlersObject.getJSONObject("tele7");
             teleLoisirObject = crawlersObject.getJSONObject("tele_loisir");
+            figaroObject = crawlersObject.getJSONObject("figaro");
             downloaderObject = configJson.getJSONObject("downloader");
 
         } catch (IOException e) {
@@ -69,6 +72,8 @@ public class Main {
             futures.add(service.submit(new XMLTVGetter(xmltvObject.getString("directory"), xmltvObject.getString("url"), xmltvObject.getString("xml_url"))));
         if(teleLoisirObject.getBoolean("active"))
             futures.add(service.submit(new GuideCrawler(new Teleloisir(), teleLoisirObject.getDouble("timeout"), teleLoisirObject.getInt("nb_thread"))));
+        if(figaroObject.getBoolean("active"))
+            futures.add(service.submit(new GuideCrawler(new LeFigaro(), figaroObject.getDouble("timeout"), figaroObject.getInt("nb_thread"))));
 
         for(Future<ArrayList<Program>> f : futures) {
             try {

@@ -21,7 +21,6 @@ public class Tele7 extends AbstractSite{
     @Override
     @SuppressWarnings("Duplicated")
     public ArrayList<Program> getPrograms(Document page) {
-        // TODO
         ArrayList<Program> programs= new ArrayList<>();
         Element typeElement = page.select("meta[property=\"og:type\"]").first();
         Element imageElement = page.select("meta[property=\"og:image\"]").first();
