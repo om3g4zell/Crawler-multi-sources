@@ -18,12 +18,38 @@ import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class implements {@link Callable} This class download the lastest XMLTV and parse it
+ * @author Louis Babuchon
+ */
 public class XMLTVGetter implements Callable<ArrayList<Program>>{
+
+    /**
+     * The xmltv saving directory
+     */
     private String directory;
+
+    /**
+     * The url of the site
+     */
     private String url;
+
+    /**
+     * The url of the xmltv
+     */
     private String xmlUrl;
+
+    /**
+     * The date pattern
+     */
     private final static Pattern pattern = Pattern.compile("((\\d{2}/\\d{2}/\\d{4})|((lundi|mardi|mercredi|jeudi|vendredi|samedi|dimanche) \\d{1,2} (janvier|fevrier|mars|avril|mai|juin|juillet|aout|septembre|octobre|novembre|decembre) \\d{4}))");
 
+    /**
+     * Constructor
+     * @param directory : the saving directory
+     * @param url : The url of the site
+     * @param xmlUrl : The xmltv url
+     */
     public XMLTVGetter(String directory, String url, String xmlUrl) {
         this.directory = directory;
         this.url = url;
@@ -45,20 +71,16 @@ public class XMLTVGetter implements Callable<ArrayList<Program>>{
 
             guide.AddChannel(channelsNode);
             guide.addPrograms(programsNode);
-            //System.out.println(guide.programString());
         }
-        /*System.out.println(guide.programString());
-        for(Program  p : guide.getPrograms()) {
-            for(Map.Entry<String, String> i : p.getIcons().entrySet()) {
-                if(!i.getKey().equals("")) {
-                    HTTPImageGetter getter = new HTTPImageGetter(i.getKey(), SAVE_REPO, p.getTitle());
-                    getter.run();
-                }
-            }
-        }*/
+
         return new ArrayList<>(guide.programs);
     }
 
+    /**
+     * Return all the xmltv of the given directory
+     * @param dir : The directory where are the xmltvs
+     * @return All the xmltv's path
+     */
     private List<File> getXmltvs(String dir) {
         File directory = new File(dir);
         ArrayList<File> files = new ArrayList<>();
@@ -77,6 +99,10 @@ public class XMLTVGetter implements Callable<ArrayList<Program>>{
         return files;
     }
 
+    /**
+     * Check if there is a new xmltv on the site
+     * @throws IOException : If there are problems in the connection
+     */
     private void checkUpdate()  throws IOException {
         Document doc = Jsoup.connect(url).get();
         byte[] xml = Jsoup.connect(xmlUrl).maxBodySize(0).execute().bodyAsBytes();
@@ -84,6 +110,11 @@ public class XMLTVGetter implements Callable<ArrayList<Program>>{
         saveXML(directory + updateDate + ".xml", xml);
     }
 
+    /**
+     * Parse the date of the XMLTV from the site
+     * @param doc : The page to parse
+     * @return String : the date
+     */
     private static String getDate(Document doc) {
 
         // We get the copyright content
@@ -108,6 +139,11 @@ public class XMLTVGetter implements Callable<ArrayList<Program>>{
         return date;
     }
 
+    /**
+     * Save the XMLTV in the given path
+     * @param path : The path to save
+     * @param content : the xmltv
+     */
     private static void saveXML(String path, byte[] content) {
         File file = new File(path);
         try {

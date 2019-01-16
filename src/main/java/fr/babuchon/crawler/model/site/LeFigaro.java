@@ -11,15 +11,38 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class extends {@link AbstractSite} and represent the Site "LeFigaro"
+ * @author Louis Babuchon
+ */
 public class LeFigaro extends AbstractSite {
 
-    private static final Pattern p = Pattern.compile("http://tvmag\\.lefigaro\\.fr/programme-tv/programme/.*");
+
+    /**
+     * The programs url's page pattern
+     */
+    private static final Pattern PROGRAM_PATTERN = Pattern.compile("http://tvmag\\.lefigaro\\.fr/programme-tv/programme/.*");
+
+    /**
+     * The logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(LeFigaro.class);
+
+    /**
+     * The image extension pattern
+     */
     private static final Pattern IMAGE_PATTERN = Pattern.compile(
             "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)");
+
+    /**
+     * The trick url pattern
+     */
     private static final Pattern TRICK_IMAGE_PATTERN = Pattern.compile(
             ".*/([0-9]*x_crop)/.*");
 
+    /**
+     * Constructor
+     */
     public LeFigaro() {
         super();
 
@@ -30,11 +53,12 @@ public class LeFigaro extends AbstractSite {
 
     }
 
+
     @Override
     public ArrayList<Program> getPrograms(Document page) {
         ArrayList<Program> programs = new ArrayList<>();
 
-        if(p.matcher(page.location()).matches()) {
+        if(PROGRAM_PATTERN.matcher(page.location()).matches()) {
             Element titleElement = page.select(".tvm-program__title").first();
             Elements imageElements = page.select(".fig-hidden-links a");
             String title = null;
@@ -55,16 +79,17 @@ public class LeFigaro extends AbstractSite {
         return programs;
     }
 
+    /**
+     * Take the image url and apply tricks to return the link of the original image from the server
+     * @param imageUrl : The url to trick
+     * @return String : The tricked url
+     */
     private String trickImageUrl(String imageUrl) {
         Matcher m = TRICK_IMAGE_PATTERN.matcher(imageUrl);
         if(m.matches()) {
             String result = imageUrl.replace(m.group(1), "5000x");
             LOGGER.debug(result);
-            if (result == null) {
-                return imageUrl;
-            } else {
-                return result;
-            }
+            return result;
         }
         else
             return imageUrl;

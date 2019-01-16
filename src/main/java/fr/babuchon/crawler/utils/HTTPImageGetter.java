@@ -15,15 +15,43 @@ import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class implements {@link Callable} it represent a task who download images from a pool
+ * @author Louis Babuchon
+ */
 public class HTTPImageGetter implements Callable<Integer> {
 
+	/**
+	 * The logger
+	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(HTTPImageGetter.class);
 
+	/**
+	 * The programs Queue
+	 */
 	private Queue<Program> queue;
+
+	/**
+	 * The saving path
+	 */
 	private String filepath;
+
+	/**
+	 * The timeout in ms
+	 */
 	private double timeout;
+
+	/**
+	 * The max faultCounter
+	 */
 	private int counter;
 
+	/**
+	 * Constructor
+	 * @param queue : The programs Queue
+	 * @param timeout : The timeout
+	 * @param filepath : The saving path
+	 */
 	public HTTPImageGetter(Queue<Program> queue, double timeout, String filepath) {
 		this.queue = queue;
 		if(timeout == 0)
@@ -71,6 +99,12 @@ public class HTTPImageGetter implements Callable<Integer> {
 		return counter;
 	}
 
+	/**
+	 * Download the given image, reformat it name and save it in the appropriate folder
+	 * @param imageURL : The image's url
+	 * @param name : The name of the program
+	 * @param source : The source of the image
+	 */
 	private void downloadImage(String imageURL, String name, String source) {
 
 		name = name.replace("/", "-");

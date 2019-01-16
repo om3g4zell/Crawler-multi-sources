@@ -12,10 +12,25 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class extends {@link AbstractSite} and represent the Site "Tele Loisir"
+ * @author Louis Babuchon
+ */
 public class Teleloisir extends AbstractSite{
 
-    private static final Pattern p = Pattern.compile("^.*(http\\.3A\\.2F\\.2F.*\\.2Ejpg).*");
+    /**
+     * The trick url pattern
+     */
+    private static final Pattern TRICK_IMAGE_PATTERN = Pattern.compile("^.*(http\\.3A\\.2F\\.2F.*\\.2Ejpg).*");
+
+    /**
+     * The logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(Teleloisir.class);
+
+    /**
+     * Constructor
+     */
     public Teleloisir() {
         super();
 
@@ -56,10 +71,15 @@ public class Teleloisir extends AbstractSite{
         return programs;
     }
 
+    /**
+     * Take the image url and apply tricks to return the link of the original image from the server
+     * @param imageUrl : The url to trick
+     * @return String : The tricked url
+     */
     private String trickImageUrl(String imageUrl) {
 
         try {
-            Matcher m = p.matcher(imageUrl);
+            Matcher m = TRICK_IMAGE_PATTERN.matcher(imageUrl);
             if(m.matches()) {
                 String result = m.group(1).replace(".", "%");
                 return URLDecoder.decode( result, "UTF-8");

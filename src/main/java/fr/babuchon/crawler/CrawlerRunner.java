@@ -1,6 +1,5 @@
 package fr.babuchon.crawler;
 
-import fr.babuchon.crawler.model.Channel;
 import fr.babuchon.crawler.model.Program;
 import fr.babuchon.crawler.model.site.AbstractSite;
 import org.jsoup.HttpStatusException;
@@ -11,22 +10,54 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
+/**
+ * This class is a runner who crawl programs from a given site
+ * @author Louis Babuchon
+ */
 public class CrawlerRunner implements Callable<ArrayList<Program>> {
 
+    /**
+     * The logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(CrawlerRunner.class);
 
+    /**
+     * The program's list
+     */
     private ArrayList<Program> programs;
+
+    /**
+     * The toVisit queue
+     */
     private Queue<String> queue;
+
+    /**
+     * The visited urls
+     */
     private Set<String> visited;
+
+    /**
+     * The site to crawl
+     */
     private AbstractSite site;
+
+    /**
+     * The timeout in seconds
+     */
     private double timeout;
 
+    /**
+     * Constructor
+     * @param queue : The concurent url to crawl
+     * @param visited : the visited urls
+     * @param site : The site to crawl
+     * @param timeout : The timeout in ms
+     */
     public CrawlerRunner(Queue<String> queue, Set<String> visited, AbstractSite site, double timeout) {
         programs = new ArrayList<>();
 
@@ -69,6 +100,10 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
         return this.programs;
     }
 
+    /**
+     * Extract programs and external links of the page
+     * @param url : the url to crawl
+     */
     public void runPage(String url) {
         try {
             ArrayList<String> urls;

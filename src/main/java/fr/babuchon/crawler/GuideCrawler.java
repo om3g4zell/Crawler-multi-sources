@@ -8,18 +8,53 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.concurrent.*;
 
+/**
+ * This class represent the main task of the crawler for the given site, it creates sub-crawlers
+ * @author Louis Babuchon
+ */
 public class GuideCrawler implements Callable<ArrayList<Program>>{
 
+    /**
+     * The logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(GuideCrawler.class);
-    
+
+    /**
+     * The timeout in ms
+     */
     public double timeout;
 
+    /**
+     * The visited urls
+     */
     private Set<String> visited;
+
+    /**
+     * The list of programs
+     */
     private ArrayList<Program> programs;
+
+    /**
+     * The urls queue
+     */
     private Queue<String> queue;
+
+    /**
+     * The number of crawler to launch
+     */
     private int nbThread;
+
+    /**
+     * The site to crawl
+     */
     private AbstractSite site;
 
+    /**
+     * Constructor
+     * @param site : The site to crawl
+     * @param timeout : The timeout in ms
+     * @param nbThread : The number of crawler
+     */
     public GuideCrawler(AbstractSite site, double timeout, int nbThread) {
 
         this.site = site;
@@ -33,6 +68,10 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
         queue.add(site.getUrl());
     }
 
+    /**
+     * Constructor with default values
+     * @param site : The site to crawl
+     */
     public GuideCrawler(AbstractSite site) {
         this(site, 200000, 10);
     }
@@ -58,3 +97,4 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
         return programs;
     }
 }
+

@@ -7,9 +7,15 @@ import org.jsoup.nodes.Element;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+/**
+ * This class extends {@link AbstractSite} and represent the Site "Tele7"
+ * @author Louis Babuchon
+ */
 public class Tele7 extends AbstractSite{
 
-
+    /**
+     * Constructor
+     */
     public Tele7() {
         super();
         this.name = "Tele7";
@@ -42,6 +48,11 @@ public class Tele7 extends AbstractSite{
         return programs;
     }
 
+    /**
+     * Take the image url and apply tricks to return the link of the original image from the server
+     * @param imageUrl : The url to trick
+     * @return String : The tricked url
+     */
     private String trickImageUrl(String imageUrl) {
         int start = imageUrl.lastIndexOf("/r");
         int end = imageUrl.indexOf("/img");

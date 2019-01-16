@@ -19,9 +19,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.*;
 
+/**
+ * Main class
+ * @author Louis Babuchon
+ */
 public class Main {
 
+    /**
+     * Logger
+     */
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+
+    /**
+     * The main method
+     * @param args : the main args
+     */
     public static void main( String[] args ) {
 
 

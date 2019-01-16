@@ -4,7 +4,7 @@
       "directory" : "res/",
       "url" : "http://www.xmltv.fr/",
       "xml_url" : "http://www.xmltv.fr/guide/tvguide.xml",
-      "active" : true
+      "active" : false
     } ,
     "tele7" : {
       "nb_thread" : 10,
