@@ -20,8 +20,8 @@ public class Teleloisir extends AbstractSite{
         super();
 
         this.name = "Tele loisir";
-        //this.url = "https://www.programme-tv.net/";
-        this.url = "https://www.programme-tv.net/cinema/2499963-love-et-autres-drogues/";
+        this.url = "https://www.programme-tv.net/";
+        //this.url = "https://www.programme-tv.net/cinema/2499963-love-et-autres-drogues/";
         allowUrl.add(Pattern.compile("https://www\\.programme-tv\\.net/.*"));
 
 

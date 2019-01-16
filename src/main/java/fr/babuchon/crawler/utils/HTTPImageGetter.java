@@ -77,7 +77,7 @@ public class HTTPImageGetter implements Callable<Integer> {
 		name = name.replace("*", "-");
 		name = name.replace("?", "-");
 		name = name.replace(":", "-");
-		name = name.replace(".", "");
+		name = name.replace(".", "_");
 
 		String filename = source + "_";
 		String imagePath = "";

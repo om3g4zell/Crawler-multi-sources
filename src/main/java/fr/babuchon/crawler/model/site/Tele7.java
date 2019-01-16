@@ -12,7 +12,7 @@ public class Tele7 extends AbstractSite{
 
     public Tele7() {
         super();
-        this.name = "Tele 7 jour";
+        this.name = "Tele7";
         this.url = "https://www.programme-television.org/";
 
         allowUrl.add(Pattern.compile("https://www\\.programme-television\\.org/.*"));
