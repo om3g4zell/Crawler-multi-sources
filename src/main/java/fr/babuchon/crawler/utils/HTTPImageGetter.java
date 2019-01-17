@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 
 import fr.babuchon.crawler.model.Program;
 import org.jsoup.Connection.Response;
@@ -95,7 +96,7 @@ public class HTTPImageGetter implements Callable<Integer> {
 				stop = false;
 		}
 
-		System.out.println("Ended :" + Thread.currentThread().getName());
+		LOGGER.info("Ended {}", Thread.currentThread().getName());
 		return counter;
 	}
 
@@ -107,23 +108,11 @@ public class HTTPImageGetter implements Callable<Integer> {
 	 */
 	private void downloadImage(String imageURL, String name, String source) {
 
-		name = name.replace("/", "-");
-		name = name.replace("*", "-");
-		name = name.replace("?", "-");
-		name = name.replace(":", "-");
-		name = name.replace(".", "_");
-
 		String filename = source + "_";
-		String imagePath = "";
 		try {
-			File file = new File(filepath);
-			if(!file.exists()) {
-				file.mkdirs();
-			}
+			File nameDir = new File(filepath, sanitizeFileName(name));
+			nameDir.mkdirs();
 
-			File nameDir = new File(filepath + "/" + name);
-			if(!nameDir.exists())
-				nameDir.mkdirs();
 			int shittyChar = imageURL.indexOf('?');
 
 			if(shittyChar == -1 ) {
@@ -132,8 +121,7 @@ public class HTTPImageGetter implements Callable<Integer> {
 			else {
 				filename += imageURL.substring(imageURL.lastIndexOf("/") + 1, shittyChar);
 			}
-			imagePath = filepath + "/" + name + "/" + filename;
-			file = new File(imagePath);
+			File file = new File(nameDir, sanitizeFileName(filename));
 			if(file.exists())
 				return;
 			Response resultImageResponse = Jsoup.connect(imageURL).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
@@ -144,13 +132,24 @@ public class HTTPImageGetter implements Callable<Integer> {
 			FileOutputStream out = new FileOutputStream(file);
 			out.write(resultImageResponse.bodyAsBytes());
 			out.close();
+			LOGGER.info("Saved : {} Thread : {}", file, Thread.currentThread().getName());
 
 		}catch(Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error : ", e);
 			return;
 		}
 
-		System.out.println("Saved : " + imagePath + " Thread : " + Thread.currentThread().getName());
 		counter++;
+	}
+
+	/**
+	 * Remove forbidden characters inside a filename.
+	 *
+	 * @param name The filename to sanitize.
+	 *
+	 * @return The filename without forbidden characters.
+	 */
+	public static String sanitizeFileName(String name){
+		return name.chars().mapToObj(i -> (char) i).filter(c -> Character.isLetterOrDigit(c) || c == '-' || c == '_' || c == ' ').map(String::valueOf).collect(Collectors.joining()).trim();
 	}
 }
