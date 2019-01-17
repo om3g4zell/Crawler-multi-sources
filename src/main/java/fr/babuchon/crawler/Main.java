@@ -90,22 +90,12 @@ public class Main {
         for(Future<ArrayList<Program>> f : futures) {
             try {
                 scheduler.fusionPrograms(f.get());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+            } catch (InterruptedException | ExecutionException e) {
+                LOGGER.error("Error : ", e);
             }
         }
-        System.out.println("Size : " + scheduler.getPrograms().size());
-        /*try {
-            FileWriter fw = new FileWriter(new File("res/test.txt"));
-            for(Program p : scheduler.getPrograms()) {
-                fw.write(p.toString());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        //scheduler.printPrograms();
+        LOGGER.info("Number of programs {}", scheduler.getPrograms().size());
+
         service.shutdown();
 
         // Download images
@@ -124,15 +114,10 @@ public class Main {
             for (Future<Integer> f : imageFutures) {
                 counter += f.get();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+        } catch (InterruptedException | ExecutionException e) {
+            LOGGER.error("Error : ", e);
         }
         service.shutdown();
-        System.out.println("Downloaded : " + counter);
-
-        // TODO problème avec tele7 comme l'url des images est à chier faut voir
-        // TODO Ajouter de nombreux site
+        LOGGER.info("Downloaded : {}", counter);
     }
 }

@@ -1,13 +1,22 @@
 package fr.babuchon.crawler;
 
 import fr.babuchon.crawler.model.Program;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * This class is a singleton it contain all the programs
  */
 public class Scheduler {
+
+    /**
+     * The logger
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(Scheduler.class);
 
     /**
      * The instance
@@ -77,7 +86,9 @@ public class Scheduler {
      * Print all the programs
      */
     public void printPrograms() {
+        StringBuilder strB = new StringBuilder();
         for(Program p : programs)
-            System.out.println(p);
+            strB.append(p);
+        LOGGER.info(strB.toString());
     }
 }

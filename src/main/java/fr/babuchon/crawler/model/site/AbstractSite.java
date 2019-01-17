@@ -60,7 +60,7 @@ public abstract class AbstractSite {
      * @return The list of external links
      */
     public ArrayList<String> getUrls(Document page) {
-        ArrayList<String> urls = new ArrayList<String>();
+        ArrayList<String> urls = new ArrayList<>();
 
         Elements links = page.select("a[href]");
 

@@ -149,7 +149,7 @@ public class Program {
                 + "Icons : \n{\n");
 		Iterator<Entry<String, String>> it = icons.entrySet().iterator();
 	    while (it.hasNext()) {
-	    	Entry<String, String> pair = (Entry<String, String>)it.next();
+	    	Entry<String, String> pair = it.next();
 	        str.append("\ticon : ").append(pair.getKey()).append(" from ").append(pair.getValue()).append("\n");
 	    }
 	    str.append("\n}\n");
@@ -177,6 +177,6 @@ public class Program {
 	 * @return String : The formatted date
 	 */
 	private String toStringDate(LocalDateTime date) {
-		return date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss")).toString();
+		return date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd-HH:mm:ss"));
 	}
 }

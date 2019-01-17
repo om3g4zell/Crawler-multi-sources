@@ -69,9 +69,8 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
 
     @Override
     public ArrayList<Program> call() throws Exception {
-        //programs.add(new Program(LocalDateTime.now(), LocalDateTime.now(), new Channel("", "tf1", ""), "p", ""));
         double start = System.currentTimeMillis();
-        double end = start;
+        double end;
         double faultCounter = 0;
         boolean stop = true;
         while(stop) {
@@ -79,12 +78,11 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             String url = queue.poll();
             if(url != null) {
                 runPage(url);
-                //LOGGER.debug("Crawled : {} T : {} Site : {}", url, Thread.currentThread().getName(), site.getUrl());
                 faultCounter = 0;
             }
             else {
                 Thread.sleep(1500);
-                //System.out.println("No link : " + Thread.currentThread().getName());
+                LOGGER.info("No links site {} Thread {} size {}", site.getName(), Thread.currentThread().getName(), queue.size());
                 faultCounter++;
             }
 
@@ -129,6 +127,8 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             }
 
             this.programs.addAll(programs);
+            if(programs.size() > 0)
+                LOGGER.info("New Program via {}, Thread {}", url, Thread.currentThread().getName());
 
         } catch (IOException e) {
             if(e instanceof UnsupportedMimeTypeException) {
@@ -142,10 +142,10 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
                         break;
                     case 410:
                         visited.add(url);
-                        LOGGER.error("Error {} : " + url, httpE.getStatusCode(), e);
+                        LOGGER.error("410 Error {} : " + url, httpE.getStatusCode(), e);
                         break;
                     case 503:
-                        System.out.println("ddos ?" + url);
+                        LOGGER.error("503 DDOS ? {}", url);
                         break;
                     default:
                         LOGGER.error("Error : {}", httpE.getStatusCode(), e);
@@ -153,7 +153,7 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
                 }
             }
             else {
-                e.printStackTrace();
+                LOGGER.error("Error : ", e);
             }
         }
     }

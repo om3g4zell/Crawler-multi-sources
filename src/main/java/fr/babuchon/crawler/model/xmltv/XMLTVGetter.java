@@ -5,7 +5,10 @@ import fr.babuchon.crawler.utils.XmltvParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.NodeList;
+import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +27,11 @@ import java.util.regex.Pattern;
  * @author Louis Babuchon
  */
 public class XMLTVGetter implements Callable<ArrayList<Program>>{
+
+    /**
+     * The logger
+     */
+    private static final Logger LOGGER = LoggerFactory.getLogger(XMLTVGetter.class);
 
     /**
      * The xmltv saving directory
@@ -85,8 +94,7 @@ public class XMLTVGetter implements Callable<ArrayList<Program>>{
         File directory = new File(dir);
         ArrayList<File> files = new ArrayList<>();
         if(directory.isDirectory() && directory.exists()) {
-            for(String f : directory.list()) {
-                System.out.println(f);
+            for(String f : Objects.requireNonNull(directory.list())) {
                 int index = f.indexOf('.');
                 String extension = "";
                 if(index > 0) {
@@ -151,12 +159,12 @@ public class XMLTVGetter implements Callable<ArrayList<Program>>{
                 FileOutputStream fos = new FileOutputStream(file);
                 fos.write(content);
                 fos.close();
-                System.out.println("A new XML has been saved ! " + file.getAbsolutePath());
+                LOGGER.info("A new XML has been saved ! {}", file.getAbsolutePath());
             } else {
-                System.out.println("Xml not saved file exists already !");
+                LOGGER.info("Xml not saved file exists already !");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Error : ", e);
         }
     }
 

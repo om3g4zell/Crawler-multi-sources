@@ -7,6 +7,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -15,6 +17,8 @@ import org.xml.sax.SAXException;
  * @author Louis Babuchon
  */
 public class XmltvParser {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(XmltvParser.class);
 
 	/**
 	 * The document builder factory
@@ -41,7 +45,7 @@ public class XmltvParser {
 			builder = factory.newDocumentBuilder();
 			xml = builder.parse(path);
 		} catch (ParserConfigurationException | SAXException | IOException e) {
-			e.printStackTrace();
+			LOGGER.error("Error : ", e);
 		}
 	}
 
@@ -53,7 +57,7 @@ public class XmltvParser {
 			factory = DocumentBuilderFactory.newInstance();
 			builder = factory.newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
+			LOGGER.error("Error : ", e);
 		}
 	}
 
@@ -64,10 +68,8 @@ public class XmltvParser {
 	public void changeXML(String path) {
 		try {
 			xml = builder.parse(path);
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (SAXException | IOException e) {
+			LOGGER.error("Error : ", e);
 		}
 	}
 
@@ -80,8 +82,7 @@ public class XmltvParser {
 		if(xml == null)
 			throw new InvalidParameterException("Error you need to open the xml !");
 		// Extract Channels infos
-		NodeList channelsNode = xml.getElementsByTagName("channel");
-		return channelsNode;
+		return xml.getElementsByTagName("channel");
 	}
 
 	/**
@@ -93,7 +94,6 @@ public class XmltvParser {
 		if(xml == null)
 			throw new InvalidParameterException("Error you need to open the xml !");
 		// Extract Channels infos
-		NodeList channelsNode = xml.getElementsByTagName("programme");
-		return channelsNode;
+		return xml.getElementsByTagName("programme");
 	}
 }

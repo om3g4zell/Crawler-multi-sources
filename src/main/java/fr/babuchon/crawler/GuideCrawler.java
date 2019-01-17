@@ -22,7 +22,7 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
     /**
      * The timeout in ms
      */
-    public double timeout;
+    private double timeout;
 
     /**
      * The visited urls
@@ -78,8 +78,6 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
 
     @Override
     public ArrayList<Program> call() throws Exception {
-
-        int nbThread = 10;
 
         ExecutorService service = Executors.newFixedThreadPool(nbThread);
 
