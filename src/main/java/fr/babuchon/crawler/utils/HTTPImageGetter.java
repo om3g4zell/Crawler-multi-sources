@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
@@ -121,18 +123,24 @@ public class HTTPImageGetter implements Callable<Integer> {
 			else {
 				filename += imageURL.substring(imageURL.lastIndexOf("/") + 1, shittyChar);
 			}
-			File file = new File(nameDir, sanitizeFileName(filename));
-			if(file.exists())
-				return;
-			Response resultImageResponse = Jsoup.connect(imageURL).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-					.referrer("http://www.google.com")
-					.ignoreContentType(true).execute();
+			try {
+				File file = new File(nameDir, sanitizeFileName(filename.substring(0, filename.lastIndexOf("."))) + filename.substring(filename.lastIndexOf(".")));
+				if(file.exists())
+					return;
+				Response resultImageResponse = Jsoup.connect(imageURL).userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+						.referrer("http://www.google.com")
+						.ignoreContentType(true).execute();
 
-			// output here
-			FileOutputStream out = new FileOutputStream(file);
-			out.write(resultImageResponse.bodyAsBytes());
-			out.close();
-			LOGGER.info("Saved : {} Thread : {}", file, Thread.currentThread().getName());
+				// output here
+				FileOutputStream out = new FileOutputStream(file);
+				out.write(resultImageResponse.bodyAsBytes());
+				out.close();
+				LOGGER.info("Saved : {} Thread : {}", file, Thread.currentThread().getName());
+			}
+			catch(StringIndexOutOfBoundsException e) {
+				LOGGER.error("Error saving file {}", filename);
+				return;
+			}
 
 		}catch(Exception e) {
 			LOGGER.error("Error : ", e);
