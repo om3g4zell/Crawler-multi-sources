@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
-import fr.babuchon.crawler.model.Channel;
-import fr.babuchon.crawler.model.Program;
+import fr.babuchon.crawler.model.tv.Channel;
+import fr.babuchon.crawler.model.tv.Program;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

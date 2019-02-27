@@ -1,6 +1,7 @@
-package fr.babuchon.crawler.model.xmltv;
+package fr.babuchon.crawler.runners;
 
-import fr.babuchon.crawler.model.Program;
+import fr.babuchon.crawler.model.tv.Program;
+import fr.babuchon.crawler.model.xmltv.Guide;
 import fr.babuchon.crawler.utils.XmltvParser;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -8,7 +9,6 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.NodeList;
-import sun.rmi.runtime.Log;
 
 import java.io.File;
 import java.io.FileOutputStream;

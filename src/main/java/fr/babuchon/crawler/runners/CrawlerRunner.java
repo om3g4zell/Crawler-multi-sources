@@ -1,6 +1,6 @@
-package fr.babuchon.crawler;
+package fr.babuchon.crawler.runners;
 
-import fr.babuchon.crawler.model.Program;
+import fr.babuchon.crawler.model.tv.Program;
 import fr.babuchon.crawler.model.site.AbstractSite;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;

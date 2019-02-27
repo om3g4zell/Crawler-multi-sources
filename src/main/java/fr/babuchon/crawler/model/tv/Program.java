@@ -1,4 +1,4 @@
-package fr.babuchon.crawler.model;
+package fr.babuchon.crawler.model.tv;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

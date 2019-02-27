@@ -2,17 +2,12 @@ package fr.babuchon.crawler.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
-import fr.babuchon.crawler.model.Program;
+import fr.babuchon.crawler.model.tv.Program;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.slf4j.Logger;

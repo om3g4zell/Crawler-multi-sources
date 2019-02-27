@@ -1,10 +1,12 @@
 package fr.babuchon.crawler;
 
-import fr.babuchon.crawler.model.Program;
+import fr.babuchon.crawler.controller.Scheduler;
+import fr.babuchon.crawler.model.tv.Program;
 import fr.babuchon.crawler.model.site.LeFigaro;
 import fr.babuchon.crawler.model.site.Tele7;
 import fr.babuchon.crawler.model.site.Teleloisir;
-import fr.babuchon.crawler.model.xmltv.XMLTVGetter;
+import fr.babuchon.crawler.runners.GuideCrawler;
+import fr.babuchon.crawler.runners.XMLTVGetter;
 import fr.babuchon.crawler.utils.HTTPImageGetter;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;

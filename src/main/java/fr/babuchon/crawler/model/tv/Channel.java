@@ -1,4 +1,4 @@
-package fr.babuchon.crawler.model;
+package fr.babuchon.crawler.model.tv;
 
 /**
  * This class represent the model for a Channel

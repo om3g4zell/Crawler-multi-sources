@@ -1,12 +1,10 @@
-package fr.babuchon.crawler;
+package fr.babuchon.crawler.controller;
 
-import fr.babuchon.crawler.model.Program;
+import fr.babuchon.crawler.model.tv.Program;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * This class is a singleton it contain all the programs

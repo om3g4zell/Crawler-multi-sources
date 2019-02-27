@@ -1,6 +1,6 @@
 package fr.babuchon.crawler.model.site;
 
-import fr.babuchon.crawler.model.Program;
+import fr.babuchon.crawler.model.tv.Program;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
