@@ -53,7 +53,7 @@ public class Tele7 extends AbstractSite{
      * @param imageUrl : The url to trick
      * @return String : The tricked url
      */
-    private String trickImageUrl(String imageUrl) {
+    String trickImageUrl(String imageUrl) {
         int start = imageUrl.lastIndexOf("/r");
         int end = imageUrl.indexOf("/img");
         if(start != -1 && end != -1) {
