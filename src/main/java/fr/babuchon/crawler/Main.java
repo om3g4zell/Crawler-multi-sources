@@ -1,10 +1,8 @@
 package fr.babuchon.crawler;
 
 import fr.babuchon.crawler.controller.Scheduler;
+import fr.babuchon.crawler.model.site.*;
 import fr.babuchon.crawler.model.tv.Program;
-import fr.babuchon.crawler.model.site.LeFigaro;
-import fr.babuchon.crawler.model.site.Tele7;
-import fr.babuchon.crawler.model.site.Teleloisir;
 import fr.babuchon.crawler.runners.GuideCrawler;
 import fr.babuchon.crawler.runners.XMLTVGetter;
 import fr.babuchon.crawler.utils.HTTPImageGetter;
@@ -38,12 +36,19 @@ public class Main {
      */
     public static void main( String[] args ) {
 
+        // TODO Faire que le fichier de config soit donnée en argument du programme
 
         JSONObject configJson;
         JSONObject xmltvObject;
+
+        // Sites
         JSONObject tele7Object;
         JSONObject teleLoisirObject;
+        JSONObject ceSoirTvObject;
+        JSONObject linternauteObject;
         JSONObject figaroObject;
+
+        // Runners
         JSONObject crawlersObject;
         JSONObject downloaderObject;
 
@@ -57,6 +62,8 @@ public class Main {
             tele7Object = crawlersObject.getJSONObject("tele7");
             teleLoisirObject = crawlersObject.getJSONObject("tele_loisir");
             figaroObject = crawlersObject.getJSONObject("figaro");
+            linternauteObject = crawlersObject.getJSONObject("linternaute");
+            ceSoirTvObject = crawlersObject.getJSONObject("ceSoirTv");
             downloaderObject = configJson.getJSONObject("downloader");
 
         } catch (IOException e) {
@@ -80,6 +87,7 @@ public class Main {
 
         List<Future<ArrayList<Program>>> futures = new ArrayList<>();
 
+        // On crée les crawler associées
         if(tele7Object.getBoolean("active"))
             futures.add(service.submit(new GuideCrawler(new Tele7(), tele7Object.getDouble("timeout"), tele7Object.getInt("nb_thread"))));
         if(xmltvObject.getBoolean("active"))
@@ -88,6 +96,11 @@ public class Main {
             futures.add(service.submit(new GuideCrawler(new Teleloisir(), teleLoisirObject.getDouble("timeout"), teleLoisirObject.getInt("nb_thread"))));
         if(figaroObject.getBoolean("active"))
             futures.add(service.submit(new GuideCrawler(new LeFigaro(), figaroObject.getDouble("timeout"), figaroObject.getInt("nb_thread"))));
+        if(ceSoirTvObject.getBoolean("active"))
+            futures.add(service.submit(new GuideCrawler(new CeSoirTv(), ceSoirTvObject.getDouble("timeout"), ceSoirTvObject.getInt("nb_thread"))));
+        if(linternauteObject.getBoolean("active"))
+            futures.add(service.submit(new GuideCrawler(new Linternaute(), linternauteObject.getDouble("timeout"), linternauteObject.getInt("nb_thread"))));
+
 
         for(Future<ArrayList<Program>> f : futures) {
             try {

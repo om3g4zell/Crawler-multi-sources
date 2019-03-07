@@ -137,8 +137,13 @@ public class CrawlerRunner implements Callable<ArrayList<Program>> {
             else if(e instanceof HttpStatusException) {
                 HttpStatusException httpE = (HttpStatusException)e;
                 switch (httpE.getStatusCode()) {
+                    case 400:
+                        visited.add(url);
+                        LOGGER.error("400 Error {} : {}", httpE.getStatusCode(), url);
+                        break;
                     case 404 :
                         visited.add(url);
+                        LOGGER.error("400 Error {} : {}", httpE.getStatusCode(), url);
                         break;
                     case 410:
                         visited.add(url);

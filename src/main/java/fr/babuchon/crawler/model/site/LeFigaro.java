@@ -46,7 +46,7 @@ public class LeFigaro extends AbstractSite {
     public LeFigaro() {
         super();
 
-        this.name = "Le Figaro";
+        this.name = "Le_Figaro";
         this.url = "http://tvmag.lefigaro.fr/";
 
         allowUrl.add(Pattern.compile("http://tvmag\\.lefigaro\\.fr/.*"));
