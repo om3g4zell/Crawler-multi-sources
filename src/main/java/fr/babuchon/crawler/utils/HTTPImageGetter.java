@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import fr.babuchon.crawler.model.tv.Program;
 import org.jsoup.Connection.Response;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -138,7 +139,14 @@ public class HTTPImageGetter implements Callable<Integer> {
 			}
 
 		}catch(Exception e) {
-			LOGGER.error("Error : ", e);
+			if(e instanceof HttpStatusException) {
+				HttpStatusException httpE = (HttpStatusException) e;
+				if(httpE.getStatusCode() == 404) {
+					LOGGER.error("{} : Error 404, Source : {}, Name : {}", imageURL, source, name);
+					return;
+				}
+			}
+			LOGGER.error("{} : Error : ", imageURL, e);
 			return;
 		}
 
