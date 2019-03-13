@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.*;
@@ -37,7 +38,13 @@ public class Main {
     public static void main( String[] args ) {
 
         // TODO Faire que le fichier de config soit donnée en argument du programme
-
+        File resFile = new File("/res");
+        if(!resFile.exists()) {
+            if (!resFile.mkdir()) {
+                LOGGER.error("Le dossier res n'a pas pu être crée !");
+                return;
+            }
+        }
         JSONObject configJson;
         JSONObject xmltvObject;
 
@@ -53,7 +60,16 @@ public class Main {
         JSONObject downloaderObject;
 
         try {
-            File file = new File("res/config.json");
+            String configPath = "";
+            LOGGER.debug(Arrays.toString(args));
+            if(args.length >= 1) {
+                configPath = args[0];
+            }
+            else {
+                LOGGER.error("Vous devez fournir un fichier de configuration");
+                return;
+            }
+            File file = new File(configPath);
             LOGGER.debug(file.getPath());
             String content = FileUtils.readFileToString(file, "utf-8");
             configJson = new JSONObject(content);

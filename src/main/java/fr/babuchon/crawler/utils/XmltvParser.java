@@ -69,7 +69,7 @@ public class XmltvParser {
 		try {
 			xml = builder.parse(path);
 		} catch (SAXException | IOException e) {
-			LOGGER.error("Error : ", e);
+			LOGGER.error("Vous avez besoin d'avoir le fichier xmltv.dtd dans le dossier indiqué dans le fichier de configuration : \nError : ", e);
 		}
 	}
 

@@ -1,5 +1,7 @@
 fr.babuchon.crawler
-fr.babuchon.crawler.model
+fr.babuchon.crawler.controller
 fr.babuchon.crawler.model.site
+fr.babuchon.crawler.model.tv
 fr.babuchon.crawler.model.xmltv
+fr.babuchon.crawler.runners
 fr.babuchon.crawler.utils

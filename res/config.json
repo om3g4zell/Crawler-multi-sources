@@ -9,27 +9,27 @@
     "tele7" : {
       "nb_thread" : 5,
       "timeout" : 300000,
-      "active" : true
+      "active" : false
     },
     "ceSoirTv" : {
       "nb_thread" : 5,
       "timeout" : 300000,
-      "active" : true
+      "active" : false
     },
     "linternaute" : {
       "nb_thread" : 5,
       "timeout" : 300000,
-      "active" : true
+      "active" : false
     },
     "tele_loisir" : {
       "nb_thread" : 5,
       "timeout" : 300000,
-      "active" : true
+      "active" : false
     },
     "figaro" : {
       "nb_thread" : 5,
       "timeout" : 300000,
-      "active" : true
+      "active" : false
     }
   },
   "downloader" : {
