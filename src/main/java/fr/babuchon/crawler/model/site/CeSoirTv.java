@@ -63,7 +63,8 @@ public class CeSoirTv extends AbstractSite{
 
             if(imageUrl != null && title != null) {
                 Program p = new Program(title);
-                p.addIcon(trickImageUrl(imageUrl), name);
+                //p.addIcon(trickImageUrl(imageUrl), name);
+                p.addIcon(imageUrl, name);
                 programs.add(p);
             }
         }

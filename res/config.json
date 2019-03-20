@@ -4,7 +4,7 @@
       "directory" : "res/",
       "url" : "http://www.xmltv.fr/",
       "xml_url" : "http://www.xmltv.fr/guide/tvguide.xml",
-      "active" : false
+      "active" : true
     } ,
     "tele7" : {
       "nb_thread" : 5,
@@ -29,7 +29,7 @@
     "figaro" : {
       "nb_thread" : 5,
       "timeout" : 60000,
-      "active" : true
+      "active" : false
     }
   },
   "downloader" : {
