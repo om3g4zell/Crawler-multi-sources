@@ -14,8 +14,4 @@ class LinternauteTest {
         linternaute = new Linternaute();
     }
 
-    @Test
-    void trickImageUrlTest() {
-
-    }
 }

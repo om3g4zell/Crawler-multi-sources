@@ -38,7 +38,7 @@ public class LeFigaro extends AbstractSite {
      * The trick url pattern
      */
     private static final Pattern TRICK_IMAGE_PATTERN = Pattern.compile(
-            ".*/([0-9]*x_crop)/.*");
+            ".*/([0-9]*x)/.*");
 
     /**
      * Constructor
@@ -84,11 +84,10 @@ public class LeFigaro extends AbstractSite {
      * @param imageUrl : The url to trick
      * @return String : The tricked url
      */
-    private String trickImageUrl(String imageUrl) {
+    String trickImageUrl(String imageUrl) {
         Matcher m = TRICK_IMAGE_PATTERN.matcher(imageUrl);
         if(m.matches()) {
             String result = imageUrl.replace(m.group(1), "5000x");
-            LOGGER.debug(result);
             return result;
         }
         else

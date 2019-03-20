@@ -36,7 +36,7 @@ public class Teleloisir extends AbstractSite{
 
         this.name = "Tele_loisir";
         this.url = "https://www.programme-tv.net/";
-        //this.url = "https://www.programme-tv.net/cinema/2499963-love-et-autres-drogues/";
+
         allowUrl.add(Pattern.compile("https://www\\.programme-tv\\.net/.*"));
 
 

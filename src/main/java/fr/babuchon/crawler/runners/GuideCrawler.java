@@ -25,7 +25,7 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
     private double timeout;
 
     /**
-     * The visited urls
+     * The concurrent visited urls
      */
     private Set<String> visited;
 
@@ -35,7 +35,7 @@ public class GuideCrawler implements Callable<ArrayList<Program>>{
     private ArrayList<Program> programs;
 
     /**
-     * The urls queue
+     * The concurrent urls queue
      */
     private Queue<String> queue;
 

@@ -37,7 +37,6 @@ public class Main {
      */
     public static void main( String[] args ) {
 
-        // TODO Faire que le fichier de config soit donnée en argument du programme
         File resFile = new File("/res");
         if(!resFile.exists()) {
             if (!resFile.mkdir()) {
