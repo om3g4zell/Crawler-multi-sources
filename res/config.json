@@ -8,28 +8,28 @@
     } ,
     "tele7" : {
       "nb_thread" : 5,
-      "timeout" : 60000,
-      "active" : false
+      "timeout" : 600000,
+      "active" : true
     },
     "ceSoirTv" : {
       "nb_thread" : 5,
-      "timeout" : 60000,
-      "active" : false
+      "timeout" : 600000,
+      "active" : true
     },
     "linternaute" : {
       "nb_thread" : 5,
-      "timeout" : 60000,
-      "active" : false
+      "timeout" : 600000,
+      "active" : true
     },
     "tele_loisir" : {
       "nb_thread" : 5,
-      "timeout" : 60000,
-      "active" : false
+      "timeout" : 600000,
+      "active" : true
     },
     "figaro" : {
       "nb_thread" : 5,
-      "timeout" : 60000,
-      "active" : false
+      "timeout" : 600000,
+      "active" : true
     }
   },
   "downloader" : {
