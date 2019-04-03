@@ -36,14 +36,7 @@ public class Main {
      * @param args : the main args
      */
     public static void main( String[] args ) {
-
-        File resFile = new File("/res");
-        if(!resFile.exists()) {
-            if (!resFile.mkdir()) {
-                LOGGER.error("Le dossier res n'a pas pu être crée !");
-                return;
-            }
-        }
+        
         JSONObject configJson;
         JSONObject xmltvObject;
 
