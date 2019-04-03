@@ -36,7 +36,7 @@ public class Main {
      * @param args : the main args
      */
     public static void main( String[] args ) {
-        
+
         JSONObject configJson;
         JSONObject xmltvObject;
 
