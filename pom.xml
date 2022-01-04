@@ -13,7 +13,7 @@
         <java.version>1.8</java.version>
         <main.class>fr.babuchon.crawler.Main</main.class>
         <junit.version>5.4.0</junit.version>
-        <log4j.version>2.13.3</log4j.version>
+        <log4j.version>2.17.1</log4j.version>
     </properties>
     <packaging>jar</packaging>
 
